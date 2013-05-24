@@ -1,3 +1,7 @@
+CHANGES BETWEEN 7.13 and 7.14:
+	-Rename the is_cleared bitmask to is_clear to avoid a name conflict
+	 with curses.
+
 CHANGES BETWEEN 7.12 and 7.13:
 Chuck Martin
 	-New column formats may now be defined with "format # = string",
