@@ -153,7 +153,7 @@ lookat(int row, int col)
     if (*pp == (struct ent *)0) {
         if (freeents != NULL) {
 	    *pp = freeents;
-	    (*pp)->flags &= ~(is_cleared);
+	    (*pp)->flags &= ~(is_clear);
 	    freeents = freeents->next;
 	} else
 	    *pp = (struct ent *) scxmalloc((unsigned)sizeof(struct ent));

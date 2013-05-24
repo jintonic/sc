@@ -273,7 +273,7 @@ struct go_save {
 #define is_deleted   0020
 #define is_locked    0040
 #define is_label     0100
-#define is_cleared   0200
+#define is_clear     0200
 
 /* cell error (1st generation (ERROR) or 2nd+ (INVALID)) */
 #define	CELLOK		0

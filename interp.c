@@ -43,6 +43,7 @@
 
 #ifndef MSDOS
 #include <unistd.h>
+#include <stdlib.h>
 #endif
 
 #if defined(RE_COMP)
@@ -404,33 +405,66 @@ domax(int minr, int minc, int maxr, int maxc)
     return (v);
 }
 
+
+static void
+range_values(
+  int minr, int minc, int maxr, int maxc, double ** values, int * count) {
+
+  int r, c;
+
+  *values = malloc(sizeof(double)*(maxr - minr + 1)*(maxc - minc + 1));
+  *count = 0;
+
+  for (r = minr; r <= maxr; r++)
+    for (c = minc; c <= maxc; c++) {
+      struct ent *p = *ATBL(tbl, r, c);
+      if (p && (p->flags & is_valid)) {
+	if (p->cellerror)
+	  cellerror = CELLINVALID;
+
+	(*values)[(*count)++] = p->v;
+	}
+      }
+  }
+
+
+static int
+dblcmp(const void * v1, const void * v2) {
+
+  const double 
+    d1 = *((double *) v1),
+    d2 = *((double *) v2);
+    
+  return (d1 < d2) ? -1 : ((d1 > d2) ? 1 : 0);
+  }
+
+
+static void
+sorted_range_values(
+  int minr, int minc, int maxr, int maxc, double ** values, int * count) {
+
+  range_values(minr, minc, maxr, maxc, values, count);
+
+  if (count > 0)
+    qsort(*values, sizeof(double), *count, dblcmp);
+  }
+
+
 double
-domin(int minr, int minc, int maxr, int maxc)
-{
-    double v = (double)0;
-    int r, c;
-    int count;
-    register struct ent *p;
+domin(int minr, int minc, int maxr, int maxc) {
 
-    count = 0;
-    for (r = minr; r<=maxr; r++)
-	for (c = minc; c<=maxc; c++)
-	    if ((p = *ATBL(tbl, r, c)) && p->flags&is_valid) {
-		if (p->cellerror)
-		    cellerror = CELLINVALID;
+  int count;
+  double * values, v;
 
-		if (!count) {
-		    v = p->v;
-		    count++;
-		} else if (p->v < v)
-		    v = p->v;
-	    }
+  sorted_range_values(minr, minc, maxr, maxc, &values, &count);
 
-    if (count == 0) 
-	return ((double)0);
+  v = count > 0 ? values[0] : 0;
 
-    return (v);
-}
+  free(values);
+
+  return v;
+  }
+
 
 int mdays[12]={ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -518,15 +552,12 @@ dotime(int which, double when)
 double
 doston(char *s)
 {
-#ifndef _AIX
-      char *strtof();
-#endif
     double v;
 
     if (!s)
 	return((double)0);
 
-    (void)strtof(s, &v);
+    (void) strtof(s, (char **) &v);
     scxfree(s);
     return(v);
 }
@@ -2155,7 +2186,7 @@ clearent(struct ent *v)
     v->format = (char *)0;
     v->flags |= (is_changed);
     v->flags &= ~(is_valid);
-    v->flags |= (is_cleared);
+    v->flags |= (is_clear);
     changed++;
     modflg++;
 }

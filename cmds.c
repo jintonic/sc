@@ -1843,7 +1843,7 @@ syncref(register struct enode *e)
     } else {
 	switch (e->op) {
 	    case 'v':
-		if (!(e->e.v.vp->flags & is_cleared))
+		if (!(e->e.v.vp->flags & is_clear))
 		    e->e.v.vp = lookat(e->e.v.vp->row, e->e.v.vp->col);
 		else {
 		    e->op = ERR_;
