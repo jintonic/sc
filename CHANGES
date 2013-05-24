@@ -1,4 +1,5 @@
 CHANGES BETWEEN 7.13 and 7.14:
+	-Include stdlib.h in xmalloc.c; delete redundant extern declarations.
 	-Rename the is_cleared bitmask to is_clear to avoid a name conflict
 	 with curses.
 
