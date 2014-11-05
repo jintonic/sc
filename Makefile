@@ -20,13 +20,13 @@ NAME=SC
 # packaging this with an O/S, for example, you'll probably want to change
 # this to /usr.  Otherwise, /usr/local is probably more appropriate, unless
 # you're replacing the vendor-supplied version.
-prefix=/usr
+prefix=/usr/local
 
 # This is where the install step puts it.
 EXDIR=${prefix}/bin
 
 # This is where the man page goes.
-MANDIR=${prefix}/man/man1
+MANDIR=${prefix}/share/man/man1
 MANEXT=1
 MANMODE=644
 
@@ -45,8 +45,8 @@ SIMPLE=
 BROKENCURSES=
 
 # Set DOBACKUPS if you would like a backup copy of a source file on a save
-#DOBACKUPS=
-DOBACKUPS=-DDOBACKUPS
+DOBACKUPS=
+#DOBACKUPS=-DDOBACKUPS
 
 # Set SIGVOID if signal routines are type void.
 # use: SIGVOID=-DSIGVOID for:
@@ -70,8 +70,8 @@ RINT=
 
 # Set RE_COMP if you have the re_comp/re_exec regular expression routines
 # (most BSD based systems do).
-#RE_COMP=
-RE_COMP=-DRE_COMP
+RE_COMP=
+#RE_COMP=-DRE_COMP
 
 # Set REGCMP if you have the regcmp/regex regular expression routines
 # (most System V based systems do)
