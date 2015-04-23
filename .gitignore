@@ -1,2 +1,11 @@
 *.exe
 *.o
+experres.h
+gram.c
+psc.1
+pvmtbl.c
+pxmalloc.c
+qhelp.c
+sc.1
+statres.h
+y.tab.h
