@@ -1060,6 +1060,14 @@ main (int argc, char  **argv)
 		case '=':
 		    if (locked_cell(currow, curcol))
 			break;
+		    /* set mark 0 */
+		    savedrow[27] = currow;
+		    savedcol[27] = curcol;
+		    savedstrow[27] = strow;
+		    savedstcol[27] = stcol;
+
+		    /* btiffin, yank current cell to buffer 0 */
+		    yankr(lookat(currow, curcol), lookat(currow, curcol));
 		    (void) sprintf(line,"let %s = ", v_name(currow, curcol));
 		    linelim = strlen(line);
 		    edit_mode();
@@ -1495,6 +1503,15 @@ main (int argc, char  **argv)
 
 		case '<':
 		    if (!locked_cell(currow, curcol)) {
+		        /* set mark 0 */
+		        savedrow[27] = currow;
+		        savedcol[27] = curcol;
+		        savedstrow[27] = strow;
+		        savedstcol[27] = stcol;
+
+		        /* btiffin, yank current cell to buffer 0 */
+		        yankr(lookat(currow, curcol), lookat(currow, curcol));
+
 			(void) sprintf(line, "leftstring %s = \"",
 				v_name(currow, curcol));
 			linelim = strlen(line);
@@ -1505,6 +1522,15 @@ main (int argc, char  **argv)
 
 		case '>':
 		    if (!locked_cell(currow, curcol)) {
+		       /* set mark 0 */
+		       savedrow[27] = currow;
+		       savedcol[27] = curcol;
+		       savedstrow[27] = strow;
+		       savedstcol[27] = stcol;
+
+		       /* btiffin, yank current cell to buffer 0 */
+		       yankr(lookat(currow, curcol), lookat(currow, curcol));
+
 		       (void) sprintf(line, "rightstring %s = \"",
 			      v_name(currow, curcol));
 		       linelim = strlen(line);
