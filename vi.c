@@ -20,6 +20,8 @@
 
 #define istext(a) (isalnum(a) || ((a) == '_'))
 
+void gotonote();
+
 static void append_line();
 static void back_hist();
 static int  back_line(int arg);
@@ -936,7 +938,7 @@ append_line()
 }
 
 static void
-change_case(arg)
+change_case(int arg)
 {
     if (linelim < 0) {
     	linelim = 0;
