@@ -5,7 +5,7 @@
  *
  * $Revision: 7.13 $
  *
- * bool
+ * boolean
  * format(fmt, precision, num, buf, buflen)
  *  char *fmt;
  *  double num;
@@ -95,13 +95,14 @@
 #include <time.h>
 #include "sc.h"
 
-#define bool	int
+#define boolean	int
 #define true	1
 #define false	0
+
 #define EOS	'\0'
 #define MAXBUF	256
 
-static char *fmt_int(char *val, char *fmt, bool comma, bool negative);
+static char *fmt_int(char *val, char *fmt, boolean comma, boolean negative);
 static char *fmt_frac(char *val, char *fmt, int lprecision);
 static char *fmt_exp(int val, char *fmt);
 
@@ -111,12 +112,12 @@ char *colformat[COLFORMATS];
 
 /*****************************************************************************/
 
-bool
+boolean
 format(char *fmt, int lprecision, double val, char *buf, int buflen)
 {
     register char *cp;
     char *tmp, *tp;
-    bool comma = false, negative = false;
+    boolean comma = false, negative = false;
     char *integer = NULL, *decimal = NULL;
     char *exponent = NULL;
     int exp_val = 0;
@@ -277,7 +278,7 @@ format(char *fmt, int lprecision, double val, char *buf, int buflen)
     static	unsigned cilen = 0, cflen = 0;
     char *ci, *cf, *ce;
     int len_ci, len_cf, len_ce;
-    bool ret = false;
+    boolean ret = false;
     
     ci = fmt_int(integer, fmt, comma, negative);
     len_ci = strlen(ci);
@@ -315,8 +316,8 @@ format(char *fmt, int lprecision, double val, char *buf, int buflen)
 static char *
 fmt_int(char *val,	/* integer part of the value to be formatted */
     char *fmt,		/* integer part of the format */
-    bool comma,		/* true if we should comma-ify the value */
-    bool negative)	/* true if the value is actually negative */
+    boolean comma,		/* true if we should comma-ify the value */
+    boolean negative)	/* true if the value is actually negative */
 {
     int digit, f, v;
     int thousands = 0;
@@ -410,7 +411,7 @@ fmt_exp(int val,	/* value of the exponent */
     static char buf[MAXBUF];
     register char *bufptr = buf;
     char valbuf[64];
-    bool negative = false;
+    boolean negative = false;
   
     *bufptr++ = *fmt++;
     if (*fmt == '+')
@@ -484,7 +485,7 @@ reverse(register char *buf)
 #define REFMTLDATE	4
 #endif
 
-bool
+boolean
 engformat(int fmt, int width, int lprecision, double val, char *buf, int buflen)
 {
 

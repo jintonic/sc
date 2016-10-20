@@ -47,6 +47,12 @@
 
 #define MAXCMD 160	/* for ! command below */
 
+void yankrow(int arg);
+void yankr(struct ent *v1, struct ent *v2);
+void yankcol(int arg);
+void gotonote();
+void list_frames(FILE *f);
+
 /* Globals defined in sc.h */
 
 struct ent ***tbl;
