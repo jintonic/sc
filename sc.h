@@ -13,6 +13,8 @@
 #ifdef MSDOS
 #include <stdio.h>
 #endif
+#include <unistd.h>
+#include <curses.h>
 
 #define	ATBL(tbl, row, col)	(*(tbl + row) + (col))
 
