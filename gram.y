@@ -24,6 +24,13 @@
 #endif
 
 #define ENULL (struct enode *)0
+
+void yankrow(int arg);
+void yankr(struct ent *v1, struct ent *v2);
+void yankcol(int arg);
+void getframe(int fd);
+void doeval(struct enode *e, char *fmt, int row, int col, int fd);
+void doseval(struct enode *e, int row, int col, int fd);
 %}
 
 %union {
@@ -763,7 +770,7 @@ command:	S_LET var_or_range '=' e
 						macrofd); }
 	|	S_EVAL e STRING '|' NUMBER
 					{ doeval($2, $3, currow, curcol,
-						$3); }
+						macrofd); }
 	|	S_SEVAL e		{ doseval($2, currow, curcol, macrofd); }
 	|	S_QUERY STRING STRING	{ doquery($2, $3, macrofd); }
 	|	S_QUERY STRING STRING '|' NUMBER
